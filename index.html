@@ -2,67 +2,841 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tamirat M | Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0b1110">
+    <meta name="description" content="Tamirat M's cybersecurity portfolio, skills, projects, and contact information.">
+    <title>Tamirat M | Cybersecurity Portfolio</title>
     <style>
+        :root {
+            color-scheme: dark;
+            --background: #0b1110;
+            --surface: #111a18;
+            --surface-raised: #15211e;
+            --text: #f2f5f1;
+            --muted: #a2b0aa;
+            --accent: #9be7c4;
+            --accent-strong: #58c99b;
+            --border: rgba(204, 231, 216, 0.12);
+            --font-sans: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+            --font-mono: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 6rem;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            max-width: 900px;
-            margin: auto;
-            padding: 20px;
-            line-height: 1.6;
+            min-width: 320px;
+            margin: 0;
+            background:
+                radial-gradient(ellipse at 75% 12%, rgba(39, 105, 78, 0.18), transparent 34rem),
+                var(--background);
+            color: var(--text);
+            font-family: var(--font-sans);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
         }
-        header {
-            text-align: center;
+
+        a {
+            color: inherit;
         }
-        section {
-            margin-top: 30px;
+
+        a:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 5px;
         }
+
+        .shell {
+            width: min(100% - 3rem, 1080px);
+            margin-inline: auto;
+        }
+
+        .site-header {
+            position: sticky;
+            z-index: 2;
+            top: 0;
+            border-bottom: 1px solid var(--border);
+            background: rgba(11, 17, 16, 0.84);
+            backdrop-filter: blur(16px);
+        }
+
+        .navigation {
+            display: flex;
+            min-height: 76px;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .wordmark {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-size: 0.92rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            text-decoration: none;
+        }
+
+        .wordmark-mark {
+            display: grid;
+            width: 34px;
+            aspect-ratio: 1;
+            place-items: center;
+            border: 1px solid rgba(155, 231, 196, 0.38);
+            border-radius: 10px;
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: clamp(1rem, 3vw, 2rem);
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            font-size: 0.88rem;
+            text-decoration: none;
+            transition: color 160ms ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .hero {
+            display: grid;
+            min-height: 590px;
+            grid-template-columns: minmax(0, 1.35fr) minmax(250px, 0.65fr);
+            align-items: center;
+            gap: clamp(3rem, 8vw, 7rem);
+            padding-block: 6rem 7rem;
+        }
+
+        .eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            margin: 0 0 1.3rem;
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before {
+            width: 22px;
+            height: 1px;
+            background: var(--accent-strong);
+            content: "";
+        }
+
+        h1,
+        h2,
+        p {
+            margin-top: 0;
+        }
+
         h1 {
-            color: #0078d4;
+            max-width: 720px;
+            margin-bottom: 1.4rem;
+            font-size: clamp(3.1rem, 8vw, 6.4rem);
+            font-weight: 650;
+            letter-spacing: -0.075em;
+            line-height: 0.99;
+        }
+
+        h1 span {
+            color: var(--accent);
+        }
+
+        .hero-copy {
+            max-width: 540px;
+            margin-bottom: 2rem;
+            color: var(--muted);
+            font-size: clamp(1rem, 2vw, 1.13rem);
+        }
+
+        .privacy-note {
+            max-width: 540px;
+            margin: -0.9rem 0 1.5rem;
+            color: var(--muted);
+            font-size: 0.83rem;
+        }
+
+        .privacy-note strong {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .button {
+            display: inline-flex;
+            min-height: 48px;
+            align-items: center;
+            justify-content: center;
+            gap: 0.65rem;
+            padding: 0.7rem 1.1rem;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 650;
+            text-decoration: none;
+            transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+        }
+
+        .button-primary {
+            background: var(--accent);
+            color: #09130f;
+        }
+
+        .button-primary:hover {
+            background: #b7f2d5;
+        }
+
+        .button-secondary {
+            border-color: var(--border);
+            color: var(--text);
+        }
+
+        .button-secondary:hover {
+            border-color: rgba(155, 231, 196, 0.5);
+        }
+
+        .hero-card {
+            position: relative;
+            overflow: hidden;
+            min-height: 320px;
+            padding: 1.4rem;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background:
+                linear-gradient(145deg, rgba(155, 231, 196, 0.08), transparent 58%),
+                var(--surface);
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.22);
+        }
+
+        .hero-card::after {
+            position: absolute;
+            right: -4rem;
+            bottom: -5rem;
+            width: 17rem;
+            aspect-ratio: 1;
+            border: 1px solid rgba(155, 231, 196, 0.12);
+            border-radius: 50%;
+            box-shadow: 0 0 0 28px rgba(155, 231, 196, 0.025), 0 0 0 58px rgba(155, 231, 196, 0.02);
+            content: "";
+        }
+
+        .card-index {
+            color: var(--muted);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+        }
+
+        .monogram {
+            display: grid;
+            width: 150px;
+            aspect-ratio: 1;
+            margin: 2.7rem auto 2.2rem;
+            place-items: center;
+            border: 1px solid rgba(155, 231, 196, 0.28);
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(155, 231, 196, 0.15), rgba(155, 231, 196, 0.025) 70%);
+            color: var(--accent);
+            font-size: 3.1rem;
+            font-weight: 600;
+            letter-spacing: -0.08em;
+        }
+
+        .card-caption {
+            position: relative;
+            z-index: 1;
+            margin: 0;
+            color: var(--muted);
+            font-family: var(--font-mono);
+            font-size: 0.76rem;
+            letter-spacing: 0.06em;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .section {
+            padding-block: 5.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-bottom: 2.4rem;
+        }
+
+        .section-heading .eyebrow {
+            margin-bottom: 0.6rem;
+        }
+
+        h2 {
+            margin-bottom: 0;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 600;
+            letter-spacing: -0.055em;
+            line-height: 1.1;
+        }
+
+        .section-note {
+            max-width: 370px;
+            margin-bottom: 0.2rem;
+            color: var(--muted);
+            font-size: 0.94rem;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(250px, 0.9fr);
+            gap: clamp(2rem, 7vw, 6rem);
+        }
+
+        .about-copy {
+            max-width: 610px;
+            margin: 0;
+            color: #c2cdc7;
+            font-size: clamp(1.1rem, 2vw, 1.35rem);
+            line-height: 1.75;
+        }
+
+        .focus-panel {
+            padding: 1.4rem;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--surface);
+        }
+
+        .credential-card {
+            max-width: 680px;
+            padding: 1.5rem;
+            border: 1px solid rgba(155, 231, 196, 0.2);
+            border-radius: 12px;
+            background: linear-gradient(130deg, rgba(155, 231, 196, 0.07), transparent 70%), var(--surface);
+        }
+
+        .credential-label {
+            margin-bottom: 0.65rem;
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-size: 0.73rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .credential-card h3 {
+            margin: 0;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            font-weight: 550;
+            letter-spacing: -0.03em;
+        }
+
+        .focus-label {
+            margin-bottom: 1rem;
+            color: var(--muted);
+            font-family: var(--font-mono);
+            font-size: 0.73rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .focus-list {
+            display: grid;
+            gap: 0.75rem;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .focus-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-size: 0.95rem;
+        }
+
+        .focus-list li::before {
+            width: 6px;
+            height: 6px;
+            flex: 0 0 auto;
+            border-radius: 50%;
+            background: var(--accent-strong);
+            content: "";
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .skill {
+            padding: 0.7rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--surface);
+            color: #d9e2dc;
+            font-size: 0.9rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .project-card {
+            display: flex;
+            min-height: 200px;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 1.35rem;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: linear-gradient(155deg, rgba(155, 231, 196, 0.045), transparent 55%), var(--surface);
+            transition: border-color 160ms ease, transform 160ms ease, background-color 160ms ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(155, 231, 196, 0.38);
+            background-color: var(--surface-raised);
+        }
+
+        .project-number {
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+        }
+
+        .project-card h3 {
+            margin: 2.5rem 0 0;
+            font-size: 1.16rem;
+            font-weight: 550;
+            letter-spacing: -0.02em;
+        }
+
+        .projects-subheading {
+            margin: 3.5rem 0 0.5rem;
+            font-size: clamp(1.4rem, 3vw, 1.8rem);
+            font-weight: 550;
+            letter-spacing: -0.04em;
+        }
+
+        .projects-intro {
+            max-width: 670px;
+            margin: 0 0 1.5rem;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .tryhackme-card {
+            min-height: 0;
+            overflow: hidden;
+            padding: 0;
+        }
+
+        .tryhackme-card img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 2 / 1;
+            border-bottom: 1px solid var(--border);
+            background: #141d2b;
+            object-fit: contain;
+        }
+
+        .project-card-content {
+            display: grid;
+            align-content: start;
+            gap: 0.55rem;
+            padding: 1rem 1.1rem 1.2rem;
+        }
+
+        .project-card-content .project-number {
+            color: var(--muted);
+        }
+
+        .tryhackme-card h3 {
+            margin: 0;
+            font-size: 1.05rem;
+        }
+
+        .contact-panel {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            padding: clamp(1.5rem, 5vw, 3rem);
+            border: 1px solid rgba(155, 231, 196, 0.2);
+            border-radius: 16px;
+            background: linear-gradient(115deg, rgba(72, 156, 119, 0.12), transparent 70%), var(--surface);
+        }
+
+        .contact-panel h2 {
+            max-width: 500px;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .site-footer {
+            display: flex;
+            min-height: 90px;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            color: var(--muted);
+            font-size: 0.82rem;
+        }
+
+        .site-footer p {
+            margin: 0;
+        }
+
+        .back-to-top {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .back-to-top:hover {
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        @media (max-width: 760px) {
+            .hero {
+                min-height: auto;
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                padding-block: 5rem;
+            }
+
+            .hero-card {
+                min-height: 280px;
+            }
+
+            .monogram {
+                width: 125px;
+                margin-block: 2rem 1.6rem;
+            }
+
+            .section-heading {
+                align-items: start;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-card {
+                min-height: 160px;
+            }
+
+            .project-card h3 {
+                margin-top: 1.5rem;
+            }
+
+            .contact-panel {
+                align-items: start;
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .shell {
+                width: min(100% - 2rem, 1080px);
+            }
+
+            .navigation {
+                min-height: 68px;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: flex-end;
+                gap: 0.85rem;
+            }
+
+            .nav-links a {
+                font-size: 0.78rem;
+                white-space: nowrap;
+            }
+
+            .wordmark {
+                gap: 0.5rem;
+                font-size: 0.83rem;
+            }
+
+            .wordmark-mark {
+                width: 30px;
+                border-radius: 8px;
+            }
+
+            .hero {
+                padding-block: 4rem;
+            }
+
+            h1 {
+                font-size: clamp(2.8rem, 15vw, 4.4rem);
+            }
+
+            .section {
+                padding-block: 4rem;
+            }
+
+            .site-footer {
+                align-items: start;
+                flex-direction: column;
+                justify-content: center;
+                padding-block: 1.4rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
-<body>
+<body id="top">
+    <header class="site-header">
+        <nav class="navigation shell" aria-label="Main navigation">
+            <a class="wordmark" href="#top" aria-label="Tamirat M, home">
+                <span class="wordmark-mark" aria-hidden="true">TM</span>
+                <span>Tamirat M</span>
+            </a>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#it-support">Support</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+    </header>
 
-<header>
-    <h1>Tamirat m</h1>
-    <p>Cybersecurity Student | Security+ Candidate</p>
-</header>
+    <main>
+        <section class="hero shell" aria-labelledby="hero-title">
+            <div>
+                <p class="eyebrow">Cybersecurity student</p>
+                <h1 id="hero-title">Curious about systems. <span>Focused on security.</span></h1>
+                <p class="hero-copy">I'm Tamirat, a cybersecurity student interested in network security, ethical hacking, and security operations.</p>
+                <p class="privacy-note"><strong>Privacy note:</strong> I don't publish my full name on this site for security reasons.</p>
+                <div class="hero-actions">
+                    <a class="button button-primary" href="#projects">Explore my projects <span aria-hidden="true">↓</span></a>
+                    <a class="button button-secondary" href="mailto:tamiratteshale16@gmail.com">Get in touch <span aria-hidden="true">↗</span></a>
+                </div>
+            </div>
+            <aside class="hero-card" aria-label="Portfolio profile">
+                <span class="card-index">01 / PROFILE</span>
+                <div class="monogram" aria-hidden="true">TM</div>
+                <p class="card-caption">IT support &amp; cybersecurity</p>
+            </aside>
+        </section>
 
-<section>
-    <h2>About Me</h2>
-    <p>
-        I am a cybersecurity student interested in network security,
-        ethical hacking, and security operations.
-    </p>
-</section>
+        <section class="section" id="about" aria-labelledby="about-title">
+            <div class="shell">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">A little about me</p>
+                        <h2 id="about-title">Learning by exploring.</h2>
+                    </div>
+                </div>
+                <div class="about-grid">
+                    <p class="about-copy">I am a cybersecurity student interested in network security, ethical hacking, and security operations.</p>
+                    <aside class="focus-panel" aria-label="Areas of interest">
+                        <p class="focus-label">Areas of interest</p>
+                        <ul class="focus-list">
+                            <li>Network security</li>
+                            <li>Ethical hacking</li>
+                            <li>Security operations</li>
+                        </ul>
+                    </aside>
+                </div>
+            </div>
+        </section>
 
-<section>
-    <h2>Skills</h2>
-    <ul>
-        <li>Network Security</li>
-        <li>Linux</li>
-        <li>Wireshark</li>
-        <li>Python</li>
-        <li>Security+</li>
-    </ul>
-</section>
+        <section class="section" id="it-support" aria-labelledby="it-support-title">
+            <div class="shell">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">Certification</p>
+                        <h2 id="it-support-title">IT Support.</h2>
+                    </div>
+                    <p class="section-note">Building a foundation in technical support and troubleshooting.</p>
+                </div>
+                <article class="credential-card">
+                    <p class="credential-label">Google certificate</p>
+                    <h3>Google IT Support Professional Certificate</h3>
+                </article>
+            </div>
+        </section>
 
-<section>
-    <h2>Projects</h2>
-    <ul>
-        <li>Home Lab Setup</li>
-        <li>Linux Security Hardening</li>
-        <li>Network Traffic Analysis</li>
-    </ul>
-</section>
+        <section class="section" id="skills" aria-labelledby="skills-title">
+            <div class="shell">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">Tools &amp; topics</p>
+                        <h2 id="skills-title">Skills I'm building.</h2>
+                    </div>
+                    <p class="section-note">A growing toolkit for understanding and protecting systems.</p>
+                </div>
+                <ul class="skills-list" aria-label="Skills">
+                    <li class="skill">Network Security</li>
+                    <li class="skill">Linux</li>
+                    <li class="skill">Wireshark</li>
+                    <li class="skill">Python</li>
+                </ul>
+            </div>
+        </section>
 
-<section>
-    <h2>Contact</h2>
-    <p>Email: tamiratteshale16@gmail.com  </p>
-    <p>LinkedIn: www.linkedin.com/in/tamirat-m</p>
-</section>
+        <section class="section" id="projects" aria-labelledby="projects-title">
+            <div class="shell">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">Hands-on learning</p>
+                        <h2 id="projects-title">Projects.</h2>
+                    </div>
+                    <p class="section-note">A few areas I've been exploring through practical work.</p>
+                </div>
+                <div class="projects-grid">
+                    <article class="project-card">
+                        <span class="project-number">01</span>
+                        <h3>Home Lab Setup</h3>
+                    </article>
+                    <article class="project-card">
+                        <span class="project-number">02</span>
+                        <h3>Linux Security Hardening</h3>
+                    </article>
+                    <article class="project-card">
+                        <span class="project-number">03</span>
+                        <h3>Network Traffic Analysis</h3>
+                    </article>
+                </div>
+                <h3 class="projects-subheading">TryHackMe rooms</h3>
+                <p class="projects-intro">These screenshots are from rooms I worked through for school and my own self-education.</p>
+                <div class="projects-grid">
+                    <article class="project-card tryhackme-card">
+                        <img src="assets/tryhackme/android-malware-analysis.png" alt="TryHackMe Android Malware Analysis room" loading="lazy">
+                        <div class="project-card-content">
+                            <span class="project-number">01 / TRYHACKME</span>
+                            <h3>Android Malware Analysis</h3>
+                        </div>
+                    </article>
+                    <article class="project-card tryhackme-card">
+                        <img src="assets/tryhackme/ms-sentinel-introduction.png" alt="TryHackMe MS Sentinel: Introduction room" loading="lazy">
+                        <div class="project-card-content">
+                            <span class="project-number">02 / TRYHACKME</span>
+                            <h3>MS Sentinel: Introduction</h3>
+                        </div>
+                    </article>
+                    <article class="project-card tryhackme-card">
+                        <img src="assets/tryhackme/dumping-router-firmware.png" alt="TryHackMe Dumping Router Firmware room" loading="lazy">
+                        <div class="project-card-content">
+                            <span class="project-number">03 / TRYHACKME</span>
+                            <h3>Dumping Router Firmware</h3>
+                        </div>
+                    </article>
+                    <article class="project-card tryhackme-card">
+                        <img src="assets/tryhackme/wireless-security.png" alt="TryHackMe Wireless Security room" loading="lazy">
+                        <div class="project-card-content">
+                            <span class="project-number">04 / TRYHACKME</span>
+                            <h3>Wireless Security</h3>
+                        </div>
+                    </article>
+                    <article class="project-card tryhackme-card">
+                        <img src="assets/tryhackme/wifi-fundamentals-reconnaissance.png" alt="TryHackMe Wi-Fi Fundamentals and Reconnaissance room" loading="lazy">
+                        <div class="project-card-content">
+                            <span class="project-number">05 / TRYHACKME</span>
+                            <h3>Wi-Fi Fundamentals and Reconnaissance</h3>
+                        </div>
+                    </article>
+                    <article class="project-card tryhackme-card">
+                        <img src="assets/tryhackme/intrusion-detection.png" alt="TryHackMe Intrusion Detection room" loading="lazy">
+                        <div class="project-card-content">
+                            <span class="project-number">06 / TRYHACKME</span>
+                            <h3>Intrusion Detection</h3>
+                        </div>
+                    </article>
+                    <article class="project-card tryhackme-card">
+                        <img src="assets/tryhackme/exploring-wazuh.png" alt="TryHackMe Exploring Wazuh room" loading="lazy">
+                        <div class="project-card-content">
+                            <span class="project-number">07 / TRYHACKME</span>
+                            <h3>Exploring Wazuh</h3>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
 
+        <section class="section" id="contact" aria-labelledby="contact-title">
+            <div class="shell">
+                <div class="contact-panel">
+                    <div>
+                        <p class="eyebrow">Let's connect</p>
+                        <h2 id="contact-title">Have a project or opportunity in mind?</h2>
+                    </div>
+                    <div class="contact-links">
+                        <a class="button button-primary" href="mailto:tamiratteshale16@gmail.com">Email me <span aria-hidden="true">↗</span></a>
+                        <a class="button button-secondary" href="https://www.linkedin.com/in/tamirat-m" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer shell">
+        <p>© <span id="year">2026</span> Tamirat M</p>
+        <a class="back-to-top" href="#top">Back to top ↑</a>
+    </footer>
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
 </body>
 </html>
